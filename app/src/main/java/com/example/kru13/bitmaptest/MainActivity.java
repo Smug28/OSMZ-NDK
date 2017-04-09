@@ -22,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
      * which is packaged with this application.
      */
     public native String stringFromJNI();
-    private native void bitmapChange(Bitmap img);
+    private native void bitmapGrayscale(Bitmap img);
+    private native void bitmapBlur(Bitmap img);
+    private native void bitmapInverse(Bitmap img);
 
     ImageView imgview;
 
@@ -36,17 +38,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonClick(View v) {
-
         Bitmap img = BitmapFactory.decodeResource(getResources(),R.drawable.vsb);
         Log.d("NDK bitmapChanged","Starting ...");
 
         // Example of a call to a native method
-        bitmapChange(img);
+        switch (v.getId()){
+            case R.id.button_grayscale:
+                bitmapGrayscale(img);
+                break;
+            case R.id.button_inverse:
+                bitmapInverse(img);
+                break;
+            case R.id.button_blur:
+                bitmapBlur(img);
+                break;
+        }
 
         Log.d("NDK bitmapChanged","Finished");
         imgview.setImageBitmap(img);
-
-
     }
 
 }

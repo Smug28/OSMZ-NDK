@@ -12,12 +12,26 @@
         android:src="@drawable/vsb" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/button_grayscale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:onClick="buttonClick"
-        android:text="Call bitmapChange" />
+        android:text="Grayscale" />
+    <Button
+        android:id="@+id/button_inverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:onClick="buttonClick"
+        android:text="Inverse" />
+    <Button
+        android:id="@+id/button_blur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:onClick="buttonClick"
+        android:text="Blur" />
 
 </LinearLayout>
 
