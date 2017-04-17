@@ -32,30 +32,32 @@ void transformInverse(uint32_t* imgp, int width, int height){
 void transformBlur(uint32_t* imgp, int width, int height){
     // TODO: 3) Blur matice 3x3, samé 1, konvoluce
     uint32_t* original_img = new uint32_t[width * height];
-    for (int i = 0; i < width * height; i++)
-        original_img[i] = imgp[i];
+    for (int k = 0; k < 3; k++) {
+        for (int i = 0; i < (width * height); i++)
+            original_img[i] = imgp[i];
 
-    float matrix[] = {
-            1,	4,	6,	4,	1,
-            4,	16,	24,	16,	4,
-            6,	24,	36,	24,	6,
-            4,	16,	24,	16,	4,
-            1,	4,	6,	4,	1
-    };
-    float weights = 1.f/9.f;
-    int x, y;
-    for (y = 2; y < height - 2; y++) {
-        for (x = 2; x < width - 2; x++) {
-            float sumR = 0, sumG = 0, sumB = 0;
-            for (int i = -2; i <= 2; i++){
-                for (int j = -2; j <= 2; j++){
-                    Color4 pixel = Color4(original_img[(y + i) * width + (x + j)]);
-                    sumR += 1/256.f * (float) pixel.getR() * matrix[(i + 2) * 5 + (j + 2)];
-                    sumG += 1/256.f * (float) pixel.getG() * matrix[(i + 2) * 5 + (j + 2)];
-                    sumB += 1/256.f * (float) pixel.getB() * matrix[(i + 2) * 5 + (j + 2)];
+        float matrix[] = {
+                1.f, 4.f, 6.f, 4.f, 1.f,
+                4.f, 16.f, 24.f, 16.f, 4.f,
+                6.f, 24.f, 36.f, 24.f, 6.f,
+                4.f, 16.f, 24.f, 16.f, 4.f,
+                1.f, 4.f, 6.f, 4.f, 1.f
+        };
+        int x, y;
+        for (y = 2; y < height - 2; y++) {
+            for (x = 2; x < width - 2; x++) {
+                float sumR = 0, sumG = 0, sumB = 0;
+                for (int i = -2; i <= 2; i++) {
+                    for (int j = -2; j <= 2; j++) {
+                        Color4 pixel = Color4(original_img[(y + i) * width + (x + j)]);
+
+                        sumR += (((float) pixel.getR()) * matrix[(i + 2) * 5 + (j + 2)]) / 255.f;
+                        sumG += (((float) pixel.getG()) * matrix[(i + 2) * 5 + (j + 2)]) / 255.f;
+                        sumB += (((float) pixel.getB()) * matrix[(i + 2) * 5 + (j + 2)]) / 255.f;
+                    }
                 }
+                imgp[y * width + x] = Color4((uint32_t) sumR, (uint32_t) sumG, (uint32_t) sumB, 255).getColor();
             }
-            imgp[y * width + x] = Color4((uint32_t) sumR, (uint32_t) sumG, (uint32_t) sumB, 255).getColor();
         }
     }
     delete[] original_img;

@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonClick(View v) {
-        Bitmap img = BitmapFactory.decodeResource(getResources(),R.drawable.vsb);
+        Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.vsb);
         Log.d("NDK bitmapChanged","Starting ...");
 
         // Example of a call to a native method
@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.button_blur:
                 bitmapBlur(img);
+                break;
+            case R.id.button_original:
+                imgview.setImageResource(R.drawable.vsb);
                 break;
         }
 
